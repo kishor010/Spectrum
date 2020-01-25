@@ -10,6 +10,9 @@
 		57628B107C33C5122B384EE6 /* Pods_Spectrum_DetailsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8DC5FF22F9FA0A30CAEAE38 /* Pods_Spectrum_DetailsUITests.framework */; };
 		69669BF7D1A478C29874E485 /* Pods_Spectrum_Details.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 859CC2FC6FF1FFCC8BF49642 /* Pods_Spectrum_Details.framework */; };
 		EFF32A79800987BFBA45305D /* Pods_Spectrum_DetailsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79DE870D378D299C9D6EA4E7 /* Pods_Spectrum_DetailsTests.framework */; };
+		F9525A0E23DC04A3007D41BA /* CompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9525A0D23DC04A3007D41BA /* CompanyViewController.swift */; };
+		F9525A1023DC04B5007D41BA /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9525A0F23DC04B5007D41BA /* MemberViewController.swift */; };
+		F9525A1223DC04C8007D41BA /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9525A1123DC04C8007D41BA /* MemberModel.swift */; };
 		F98DF92C23DBF0F80056ADE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DF92B23DBF0F80056ADE9 /* AppDelegate.swift */; };
 		F98DF92E23DBF0F80056ADE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DF92D23DBF0F80056ADE9 /* ViewController.swift */; };
 		F98DF93123DBF0F80056ADE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F98DF92F23DBF0F80056ADE9 /* Main.storyboard */; };
@@ -48,6 +51,9 @@
 		91D73A0EABF4220CA98C1441 /* Pods-Spectrum_DetailsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spectrum_DetailsTests.debug.xcconfig"; path = "Target Support Files/Pods-Spectrum_DetailsTests/Pods-Spectrum_DetailsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C8DC5FF22F9FA0A30CAEAE38 /* Pods_Spectrum_DetailsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spectrum_DetailsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBF677121FAFE48089921D02 /* Pods-Spectrum_Details.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spectrum_Details.release.xcconfig"; path = "Target Support Files/Pods-Spectrum_Details/Pods-Spectrum_Details.release.xcconfig"; sourceTree = "<group>"; };
+		F9525A0D23DC04A3007D41BA /* CompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewController.swift; sourceTree = "<group>"; };
+		F9525A0F23DC04B5007D41BA /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemberViewController.swift; path = Spectrum_Details/Member/MemberViewController.swift; sourceTree = SOURCE_ROOT; };
+		F9525A1123DC04C8007D41BA /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemberModel.swift; path = Spectrum_Details/Member/MemberModel.swift; sourceTree = SOURCE_ROOT; };
 		F98DF92823DBF0F80056ADE9 /* Spectrum_Details.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spectrum_Details.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98DF92B23DBF0F80056ADE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F98DF92D23DBF0F80056ADE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +109,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		F9525A1323DC04D4007D41BA /* Member */ = {
+			isa = PBXGroup;
+			children = (
+				F9525A0F23DC04B5007D41BA /* MemberViewController.swift */,
+				F9525A1123DC04C8007D41BA /* MemberModel.swift */,
+			);
+			path = Member;
+			sourceTree = "<group>";
+		};
 		F98DF91F23DBF0F80056ADE9 = {
 			isa = PBXGroup;
 			children = (
@@ -135,7 +150,7 @@
 				F98DF93723DBF0FA0056ADE9 /* LaunchScreen.storyboard */,
 				F98DF93A23DBF0FA0056ADE9 /* Info.plist */,
 				F98DF93223DBF0F80056ADE9 /* Spectrum_Details.xcdatamodeld */,
-				F9D9E45323DBFD0600E70240 /* Member */,
+				F9525A1323DC04D4007D41BA /* Member */,
 				F9D9E45223DBFCFA00E70240 /* Company */,
 			);
 			path = Spectrum_Details;
@@ -163,15 +178,9 @@
 			isa = PBXGroup;
 			children = (
 				F9D9E45423DBFD2800E70240 /* Model.swift */,
+				F9525A0D23DC04A3007D41BA /* CompanyViewController.swift */,
 			);
 			path = Company;
-			sourceTree = "<group>";
-		};
-		F9D9E45323DBFD0600E70240 /* Member */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Member;
 			sourceTree = "<group>";
 		};
 		FA5F2F0011DA68D807168684 /* Pods */ = {
@@ -408,10 +417,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9525A1023DC04B5007D41BA /* MemberViewController.swift in Sources */,
 				F98DF93423DBF0F80056ADE9 /* Spectrum_Details.xcdatamodeld in Sources */,
 				F98DF92E23DBF0F80056ADE9 /* ViewController.swift in Sources */,
 				F98DF92C23DBF0F80056ADE9 /* AppDelegate.swift in Sources */,
 				F9D9E45523DBFD2800E70240 /* Model.swift in Sources */,
+				F9525A0E23DC04A3007D41BA /* CompanyViewController.swift in Sources */,
+				F9525A1223DC04C8007D41BA /* MemberModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
