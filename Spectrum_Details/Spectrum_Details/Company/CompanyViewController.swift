@@ -120,6 +120,8 @@ extension CompanyViewController: getCompaniesListDelegate {
     func failure(error: String) {
         hideProgressIndicator(view: self.view)
         Utils.showAlert(AlertTitle: error, AlertMessage: "", controller: self)
+        listCompanies = DBService.sharedInstance.fetchAllCompanies()
+        tableViewCompanyList.reloadData()
     }
 }
 
