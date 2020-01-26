@@ -15,4 +15,8 @@ class Keys: NSObject {
     static let loading = "loading"
     static let companies = "companies"
     static let spectrum = "spectrum"
+    static let select_order = "select_order"
+    static let cancel = "cancel"
+    static let descending = "descending"
+    static let ascending = "ascending"
 }
