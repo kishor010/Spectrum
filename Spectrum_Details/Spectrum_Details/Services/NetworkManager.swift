@@ -14,24 +14,24 @@ typealias dict = [String: AnyObject]
 typealias onSuccess = (JSON)->()
 typealias onFailure = (String)->()
 
-private let _sharedInstance = RateConverterNetworkManager()
-private let DEBUG_MODE = true
+private let _sharedInstance = NetworkManager()
+private let DEBUG_MODE = false
 
-class RateConverterNetworkManager {
+class NetworkManager {
     
     //MARKS: Shared Instance
     private let restClient = RestClient()
     
     fileprivate init(){}
     
-    static var sharedInstance: RateConverterNetworkManager {
+    static var sharedInstance: NetworkManager {
         return _sharedInstance
     }
     
     //MARK: Network Call Methods
-    func getCurrencyConverter(onSuccess: @escaping onSuccess,
+    func apiToGetCompaniesList(onSuccess: @escaping onSuccess,
                         onFailure: @escaping onFailure)  {
-        let _url = CurrencyConverterAPIRouter.Router.getCompaniesList
+        let _url = NetworkRouter.Router.getCompaniesList
         
         if let request = _url.asURLRequest() {
             restClient.makeRequest(url: request, onSuccess: onSuccess, onFailure: onFailure)

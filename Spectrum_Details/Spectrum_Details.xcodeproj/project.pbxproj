@@ -21,6 +21,8 @@
 		F98DF93923DBF0FA0056ADE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F98DF93723DBF0FA0056ADE9 /* LaunchScreen.storyboard */; };
 		F98DF94423DBF0FA0056ADE9 /* Spectrum_DetailsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DF94323DBF0FA0056ADE9 /* Spectrum_DetailsTests.swift */; };
 		F98DF94F23DBF0FA0056ADE9 /* Spectrum_DetailsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DF94E23DBF0FA0056ADE9 /* Spectrum_DetailsUITests.swift */; };
+		F9937CB923DDBE3900B02992 /* CompanyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9937CB723DDBE3900B02992 /* CompanyTableViewCell.swift */; };
+		F9937CBA23DDBE3900B02992 /* CompanyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9937CB823DDBE3900B02992 /* CompanyTableViewCell.xib */; };
 		F99FD3FE23DD85D5001471F7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FD3FD23DD85D5001471F7 /* Utils.swift */; };
 		F99FD40223DD8894001471F7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F99FD40423DD8894001471F7 /* Localizable.strings */; };
 		F99FD40623DD897C001471F7 /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FD40523DD897C001471F7 /* Keys.swift */; };
@@ -76,6 +78,8 @@
 		F98DF94A23DBF0FA0056ADE9 /* Spectrum_DetailsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Spectrum_DetailsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98DF94E23DBF0FA0056ADE9 /* Spectrum_DetailsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spectrum_DetailsUITests.swift; sourceTree = "<group>"; };
 		F98DF95023DBF0FA0056ADE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9937CB723DDBE3900B02992 /* CompanyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyTableViewCell.swift; sourceTree = "<group>"; };
+		F9937CB823DDBE3900B02992 /* CompanyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CompanyTableViewCell.xib; sourceTree = "<group>"; };
 		F99FD3FD23DD85D5001471F7 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F99FD40323DD8894001471F7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		F99FD40523DD897C001471F7 /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
@@ -193,6 +197,15 @@
 			path = Spectrum_DetailsUITests;
 			sourceTree = "<group>";
 		};
+		F9937CBB23DDC23E00B02992 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F9937CB723DDBE3900B02992 /* CompanyTableViewCell.swift */,
+				F9937CB823DDBE3900B02992 /* CompanyTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		F99FD3FC23DD85B8001471F7 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +229,7 @@
 		F9D9E45223DBFCFA00E70240 /* Company */ = {
 			isa = PBXGroup;
 			children = (
+				F9937CBB23DDC23E00B02992 /* Cell */,
 				F9D9E45423DBFD2800E70240 /* Model.swift */,
 				F9525A0D23DC04A3007D41BA /* CompanyViewController.swift */,
 				F99FD41023DD8DFE001471F7 /* CompanyViewModel.swift */,
@@ -346,6 +360,7 @@
 			files = (
 				F98DF93923DBF0FA0056ADE9 /* LaunchScreen.storyboard in Resources */,
 				F99FD40223DD8894001471F7 /* Localizable.strings in Resources */,
+				F9937CBA23DDBE3900B02992 /* CompanyTableViewCell.xib in Resources */,
 				F98DF93623DBF0FA0056ADE9 /* Assets.xcassets in Resources */,
 				F98DF93123DBF0F80056ADE9 /* Main.storyboard in Resources */,
 			);
@@ -471,6 +486,7 @@
 				F9525A1223DC04C8007D41BA /* MemberModel.swift in Sources */,
 				F99FD40623DD897C001471F7 /* Keys.swift in Sources */,
 				F99FD40823DD8A79001471F7 /* ProgressIndicator.swift in Sources */,
+				F9937CB923DDBE3900B02992 /* CompanyTableViewCell.swift in Sources */,
 				F99FD3FE23DD85D5001471F7 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

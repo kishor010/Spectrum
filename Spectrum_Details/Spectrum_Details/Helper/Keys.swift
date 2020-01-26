@@ -13,4 +13,6 @@ class Keys: NSObject {
     //MARK:- Localizable strings
     static var alertOK = "alertOK"
     static let loading = "loading"
+    static let companies = "companies"
+    static let spectrum = "spectrum"
 }

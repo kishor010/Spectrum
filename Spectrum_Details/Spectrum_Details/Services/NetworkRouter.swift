@@ -10,7 +10,7 @@ import Foundation
 
 private let requestTimeOut: TimeInterval = 60
 
-class CurrencyConverterAPIRouter {
+class NetworkRouter {
     
     enum Router {
         

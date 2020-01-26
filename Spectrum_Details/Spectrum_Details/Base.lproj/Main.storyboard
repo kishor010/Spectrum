@@ -43,6 +43,59 @@
             </objects>
             <point key="canvasLocation" x="922" y="-671"/>
         </scene>
+        <!--Member View Controller-->
+        <scene sceneID="aQI-lS-xdW">
+            <objects>
+                <viewController storyboardIdentifier="MemberViewController" id="LSu-pP-3At" customClass="MemberViewController" customModule="Spectrum_Details" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uXD-wO-fMd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ia1-XS-rFy"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yl-Yp-39e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2186" y="-681"/>
+        </scene>
+        <!--Company View Controller-->
+        <scene sceneID="Zxs-Li-jVN">
+            <objects>
+                <viewController storyboardIdentifier="CompanyViewController" id="vmn-mW-f1S" customClass="CompanyViewController" customModule="Spectrum_Details" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="X5q-Nx-A0u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search company by age or name" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ3-DD-JWD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fz3-NS-uFY">
+                                <rect key="frame" x="0.0" y="56" width="375" height="611"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fz3-NS-uFY" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="7YL-35-Ph1"/>
+                            <constraint firstItem="gcd-cS-jus" firstAttribute="trailing" secondItem="fz3-NS-uFY" secondAttribute="trailing" id="WX0-Is-dHR"/>
+                            <constraint firstItem="ZJ3-DD-JWD" firstAttribute="trailing" secondItem="gcd-cS-jus" secondAttribute="trailing" id="WxK-KM-rUW"/>
+                            <constraint firstItem="gcd-cS-jus" firstAttribute="bottom" secondItem="fz3-NS-uFY" secondAttribute="bottom" id="eAI-Fw-Ivv"/>
+                            <constraint firstItem="ZJ3-DD-JWD" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="jUp-RO-hMM"/>
+                            <constraint firstItem="fz3-NS-uFY" firstAttribute="top" secondItem="ZJ3-DD-JWD" secondAttribute="bottom" id="lJt-CL-uJd"/>
+                            <constraint firstItem="ZJ3-DD-JWD" firstAttribute="top" secondItem="gcd-cS-jus" secondAttribute="top" id="mkM-Hp-yGs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gcd-cS-jus"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="ZJ3-DD-JWD" id="RGu-Xk-3tK"/>
+                        <outlet property="tableViewCompanyList" destination="fz3-NS-uFY" id="dVw-v8-ICR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HZQ-WU-stV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1548" y="-672"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="hDw-h8-tjM">
             <objects>

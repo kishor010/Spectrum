@@ -11,7 +11,7 @@ import UIKit
 /*MARK: Show Progress Indicator */
 func showProgressIndicator(view:UIView) {
     view.isUserInteractionEnabled = false
-    let progressIndicator = ProgressIndicator(text: Keys.loading)
+    let progressIndicator = ProgressIndicator(text: Utils.localizedString(forKey: Keys.loading))
     progressIndicator.tag = Utils.PROGRESS_INDICATOR_VIEW_TAG
     view.addSubview(progressIndicator)
 }

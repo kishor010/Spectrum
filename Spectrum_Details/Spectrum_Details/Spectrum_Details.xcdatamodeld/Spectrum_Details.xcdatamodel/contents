@@ -3,6 +3,8 @@
     <entity name="Company" representedClassName="Company" syncable="YES" codeGenerationType="class">
         <attribute name="companyDescription" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isFav" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="isFollow" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="logo" optional="YES" attributeType="String"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="website" optional="YES" attributeType="String"/>
@@ -12,11 +14,12 @@
         <attribute name="company_id" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
+        <attribute name="isFav" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="phone" optional="YES" attributeType="String"/>
     </entity>
     <elements>
-        <element name="Company" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="Member" positionX="-54" positionY="36" width="128" height="133"/>
+        <element name="Company" positionX="-63" positionY="-18" width="128" height="148"/>
+        <element name="Member" positionX="-54" positionY="36" width="128" height="148"/>
     </elements>
 </model>

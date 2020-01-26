@@ -15,6 +15,8 @@ struct CompanyModel {
     let logo: String
     let id: String
     let companyDescription: String
+    var isFav = false
+    var isFollowed = false
 }
 
 extension CompanyModel: JSONObjectInitializable {
