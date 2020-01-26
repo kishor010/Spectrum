@@ -12,7 +12,6 @@
 		EFF32A79800987BFBA45305D /* Pods_Spectrum_DetailsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79DE870D378D299C9D6EA4E7 /* Pods_Spectrum_DetailsTests.framework */; };
 		F9525A0E23DC04A3007D41BA /* CompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9525A0D23DC04A3007D41BA /* CompanyViewController.swift */; };
 		F9525A1023DC04B5007D41BA /* MemberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9525A0F23DC04B5007D41BA /* MemberViewController.swift */; };
-		F9525A1223DC04C8007D41BA /* MemberModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9525A1123DC04C8007D41BA /* MemberModel.swift */; };
 		F98DF92C23DBF0F80056ADE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DF92B23DBF0F80056ADE9 /* AppDelegate.swift */; };
 		F98DF92E23DBF0F80056ADE9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98DF92D23DBF0F80056ADE9 /* ViewController.swift */; };
 		F98DF93123DBF0F80056ADE9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F98DF92F23DBF0F80056ADE9 /* Main.storyboard */; };
@@ -32,6 +31,8 @@
 		F99FD40F23DD8B74001471F7 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FD40C23DD8B74001471F7 /* NetworkRouter.swift */; };
 		F99FD41123DD8DFE001471F7 /* CompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F99FD41023DD8DFE001471F7 /* CompanyViewModel.swift */; };
 		F9D9E45523DBFD2800E70240 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9D9E45423DBFD2800E70240 /* Model.swift */; };
+		F9E55A0B23DE1F790038333B /* MemberTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E55A0923DE1F790038333B /* MemberTableViewCell.swift */; };
+		F9E55A0C23DE1F790038333B /* MemberTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9E55A0A23DE1F790038333B /* MemberTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +64,6 @@
 		CBF677121FAFE48089921D02 /* Pods-Spectrum_Details.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spectrum_Details.release.xcconfig"; path = "Target Support Files/Pods-Spectrum_Details/Pods-Spectrum_Details.release.xcconfig"; sourceTree = "<group>"; };
 		F9525A0D23DC04A3007D41BA /* CompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewController.swift; sourceTree = "<group>"; };
 		F9525A0F23DC04B5007D41BA /* MemberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemberViewController.swift; path = Spectrum_Details/Member/MemberViewController.swift; sourceTree = SOURCE_ROOT; };
-		F9525A1123DC04C8007D41BA /* MemberModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MemberModel.swift; path = Spectrum_Details/Member/MemberModel.swift; sourceTree = SOURCE_ROOT; };
 		F98DF92823DBF0F80056ADE9 /* Spectrum_Details.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spectrum_Details.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F98DF92B23DBF0F80056ADE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F98DF92D23DBF0F80056ADE9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +89,8 @@
 		F99FD40C23DD8B74001471F7 /* NetworkRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		F99FD41023DD8DFE001471F7 /* CompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyViewModel.swift; sourceTree = "<group>"; };
 		F9D9E45423DBFD2800E70240 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		F9E55A0923DE1F790038333B /* MemberTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberTableViewCell.swift; sourceTree = "<group>"; };
+		F9E55A0A23DE1F790038333B /* MemberTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +134,8 @@
 		F9525A1323DC04D4007D41BA /* Member */ = {
 			isa = PBXGroup;
 			children = (
+				F9E55A0D23DE1F7E0038333B /* Cell */,
 				F9525A0F23DC04B5007D41BA /* MemberViewController.swift */,
-				F9525A1123DC04C8007D41BA /* MemberModel.swift */,
 			);
 			path = Member;
 			sourceTree = "<group>";
@@ -235,6 +237,15 @@
 				F99FD41023DD8DFE001471F7 /* CompanyViewModel.swift */,
 			);
 			path = Company;
+			sourceTree = "<group>";
+		};
+		F9E55A0D23DE1F7E0038333B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				F9E55A0923DE1F790038333B /* MemberTableViewCell.swift */,
+				F9E55A0A23DE1F790038333B /* MemberTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		FA5F2F0011DA68D807168684 /* Pods */ = {
@@ -359,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F98DF93923DBF0FA0056ADE9 /* LaunchScreen.storyboard in Resources */,
+				F9E55A0C23DE1F790038333B /* MemberTableViewCell.xib in Resources */,
 				F99FD40223DD8894001471F7 /* Localizable.strings in Resources */,
 				F9937CBA23DDBE3900B02992 /* CompanyTableViewCell.xib in Resources */,
 				F98DF93623DBF0FA0056ADE9 /* Assets.xcassets in Resources */,
@@ -483,7 +495,7 @@
 				F9D9E45523DBFD2800E70240 /* Model.swift in Sources */,
 				F9525A0E23DC04A3007D41BA /* CompanyViewController.swift in Sources */,
 				F99FD40F23DD8B74001471F7 /* NetworkRouter.swift in Sources */,
-				F9525A1223DC04C8007D41BA /* MemberModel.swift in Sources */,
+				F9E55A0B23DE1F790038333B /* MemberTableViewCell.swift in Sources */,
 				F99FD40623DD897C001471F7 /* Keys.swift in Sources */,
 				F99FD40823DD8A79001471F7 /* ProgressIndicator.swift in Sources */,
 				F9937CB923DDBE3900B02992 /* CompanyTableViewCell.swift in Sources */,

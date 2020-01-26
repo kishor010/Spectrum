@@ -34,6 +34,24 @@ class DBService {
         return listCompany
     }
     
+    func fetchAllMembers(companyId: String?) -> [Member] {
+        var listMembers = [Member]()
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Member")
+        fetchRequest.predicate = NSPredicate(format: "company_id == %@ ", companyId ?? "")
+        do {
+            let arrModels = try AppDelegate.getContext().fetch(fetchRequest) as! [Member]
+            if arrModels.count > 0 {
+                listMembers = arrModels
+            }
+        }
+        catch let error {
+            //Handle Error
+            print(error as AnyObject)
+        }
+        
+        return listMembers
+    }
+    
     //MARK:- Save Company and Members into DB
     func saveComapnies(data: CompanyModel) {
         var entityCompany: Company!
@@ -56,24 +74,33 @@ class DBService {
         self.saveContext()
     }
     
-    func saveMembers(data: MemberModel, companyId: String)  {
+    func saveMembers(data: JSON, companyId: String)  {
+        
         var entityMember: Member!
-        if let model = checkMemberExist(id: data.id)  {
+        
+        let id = data["_id"].rawValue as? String
+        let age = data["age"].rawValue as? Int32
+        let email = data["email"].rawValue as? String
+        let phone = data["phone"].rawValue as? String
+        let firstName = data["name"]["first"].rawValue as? String
+        let lastName = data["name"]["last"].rawValue as? String
+        
+        if let model = checkMemberExist(id: id)  {
             entityMember = model
         }
         
         else {
             entityMember = Member.init(context: AppDelegate.getContext())
+            entityMember.isFav = false
         }
         
-        entityMember.id = data.id
+        entityMember.id = id
         entityMember.company_id = companyId
-        entityMember.age = Int32(data.age)
-        entityMember.isFav = false
-        //entityMember.name = data.name
-        entityMember.email = data.email
-        entityMember.phone = data.phone
-        
+        entityMember.age = age ?? 0
+        entityMember.firstName = firstName
+        entityMember.lastName = lastName
+        entityMember.email = email
+        entityMember.phone = phone
         self.saveContext()
     }
     
