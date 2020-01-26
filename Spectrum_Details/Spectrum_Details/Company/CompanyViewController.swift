@@ -16,6 +16,8 @@ class CompanyViewController: UIViewController {
     
     var listCompanies: [Company]?
     var viewModel: CompanyViewModel?
+    var ascending: Bool?
+    var alert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +28,64 @@ class CompanyViewController: UIViewController {
         setupTableView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.title = Utils.localizedString(forKey: Keys.companies)
+        
+        let rightButtonItem = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(filterTapped))
+        self.navigationItem.rightBarButtonItem = rightButtonItem
+    }
+    
     fileprivate func refreshData() {
         listCompanies = DBService.sharedInstance.fetchAllCompanies()
         tableViewCompanyList.reloadData()
+    }
+    
+    @objc fileprivate func filterTapped(sender: UIBarButtonItem) {
+        alert = UIAlertController(title: "Select order", message: "", preferredStyle: .alert)
+        alert?.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        alert?.addAction(UIAlertAction(title: "Descending", style: .default, handler: { (action) in
+            self.ascending = false
+            self.sortList()
+        }))
+        alert?.addAction(UIAlertAction(title: "Ascending", style: .default, handler: { (action) in
+            self.ascending = true
+            self.sortList()
+        }))
+        if let alert = alert {
+            present(alert, animated: false, completion: nil)
+        }
+    }
+    
+    //MARK:- Sort List by Company Name
+    fileprivate func sortList() {
+        if (ascending != nil) && (listCompanies != nil) && (listCompanies!.count > 0) {
+            if (ascending == true) {
+                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
+                    if (A.name != nil && B.name != nil) && (A.name! < B.name!) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                })
+                tableViewCompanyList.reloadData()
+            }
+            
+            else {
+                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
+                    if (A.name != nil && B.name != nil) && (A.name! > B.name!) {
+                        return true
+                    }
+                    
+                    else {
+                        return false
+                    }
+                })
+                tableViewCompanyList.reloadData()
+            }
+        }
     }
     
     fileprivate func setupTableView() {
@@ -40,11 +97,6 @@ class CompanyViewController: UIViewController {
     
     fileprivate func showHideListView(isHide: Bool) {
         tableViewCompanyList.isHidden = isHide
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.title = Utils.localizedString(forKey: Keys.companies)
     }
 }
 
@@ -121,9 +173,7 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 listCompanies![tag].isFav = !(listCompanies![tag].isFav)
                 DBService.sharedInstance.saveContext()
-                
-//                DBService.sharedInstance.markFavAndUnFavCompany(companyId: listCompanies![tag].id ?? "" ,isFav: listCompanies![tag].isFav )
-                
+   
                 if (listCompanies![tag].isFav == true) {
                     cell.btnFav.setImage(UIImage(named: "Fav"), for: .normal)
                 }
@@ -141,8 +191,6 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
                 
                 listCompanies![tag].isFollow = !(listCompanies![tag].isFollow)
                 DBService.sharedInstance.saveContext()
-                
-//                DBService.sharedInstance.markFollowAndUnFollowCompany(companyId: listCompanies![tag].id ?? "" ,isFollow: listCompanies![tag].isFollow)
                 
                 if (listCompanies![tag].isFollow == true) {
                     cell.btnFollow.setImage(UIImage(named: "Follow"), for: .normal)
