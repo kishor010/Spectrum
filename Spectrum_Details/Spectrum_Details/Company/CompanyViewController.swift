@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import SafariServices
 
 class CompanyViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableViewCompanyList: UITableView!
+    
     var listCompanies: [CompanyModel]?
     var viewModel: CompanyViewModel?
     
@@ -74,8 +76,17 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.selectionStyle = .none
         cell?.populateData(data: listCompanies?[indexPath.row])
         cell?.companyLinkButtom.tag = indexPath.row
-        let TGes = UITapGestureRecognizer(target: self, action: #selector(tappedOnLinke))
+        cell?.btnFav.tag = indexPath.row
+        cell?.btnFollow.tag = indexPath.row
+        
+        let TGes = UITapGestureRecognizer(target: self, action: #selector(tappedOnLink))
         cell?.companyLinkButtom.addGestureRecognizer(TGes);
+
+        let TGesFav = UITapGestureRecognizer(target: self, action: #selector(tappedOnFav))
+        cell?.btnFav.addGestureRecognizer(TGesFav);
+        
+        let TGesFollow = UITapGestureRecognizer(target: self, action: #selector(tappedOnFollow))
+        cell?.btnFollow.addGestureRecognizer(TGesFollow);
         
         return cell ?? UITableViewCell()
     }
@@ -91,10 +102,50 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
         debugPrint(indexPath.row)
     }
     
-    @objc fileprivate func tappedOnLinke(sender: UITapGestureRecognizer) {
-        
+    @objc fileprivate func tappedOnLink(sender: UITapGestureRecognizer) {
         if let tag = sender.view?.tag, let linkURL = listCompanies?[tag] {
-            debugPrint(linkURL)
+            if let url = URL(string: linkURL.website), UIApplication.shared.canOpenURL(url)  {
+                let openLinkVC = SFSafariViewController(url: url)
+                self.navigationController?.show(openLinkVC, sender: nil)
+            }
+        }
+    }
+    
+    @objc fileprivate func tappedOnFav(sender: UITapGestureRecognizer) {
+        if let tag = sender.view?.tag, listCompanies != nil {
+            if let cell = tableViewCompanyList.cellForRow(at: IndexPath(row: tag, section: 0)) as? CompanyTableViewCell {
+                
+                listCompanies![tag].isFav = !(listCompanies![tag].isFav)
+                
+                DBService.sharedInstance.markFavAndUnFavCompany(companyId: listCompanies![tag].id ,isFav: listCompanies![tag].isFav )
+                
+                if (listCompanies![tag].isFav == true) {
+                    cell.btnFav.setImage(UIImage(named: "Fav"), for: .normal)
+                }
+                
+                else {
+                    cell.btnFav.setImage(UIImage(named: "UnFav"), for: .normal)
+                }
+            }
+        }
+    }
+    
+    @objc fileprivate func tappedOnFollow(sender: UITapGestureRecognizer) {
+        if let tag = sender.view?.tag, listCompanies != nil {
+            if let cell = tableViewCompanyList.cellForRow(at: IndexPath(row: tag, section: 0)) as? CompanyTableViewCell {
+                
+                listCompanies![tag].isFollowed = !(listCompanies![tag].isFollowed)
+                
+                DBService.sharedInstance.markFollowAndUnFollowCompany(companyId: listCompanies![tag].id ,isFollow: listCompanies![tag].isFollowed)
+                
+                if (listCompanies![tag].isFollowed == true) {
+                    cell.btnFollow.setImage(UIImage(named: "Follow"), for: .normal)
+                }
+                
+                else {
+                    cell.btnFollow.setImage(UIImage(named: "UnFollow"), for: .normal)
+                }
+            }
         }
     }
 }

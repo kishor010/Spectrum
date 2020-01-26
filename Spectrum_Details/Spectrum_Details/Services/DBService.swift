@@ -26,6 +26,8 @@ class DBService {
         
         else {
             entityCompany = Company.init(context: AppDelegate.getContext())
+            entityCompany.isFav = data.isFav
+            entityCompany.isFollow = data.isFollowed
         }
         
         entityCompany.id = data.id
@@ -33,8 +35,7 @@ class DBService {
         entityCompany.companyDescription = data.companyDescription
         entityCompany.logo = data.logo
         entityCompany.website = data.website
-        entityCompany.isFav = data.isFav
-        entityCompany.isFollow = data.isFollowed
+        
         self.saveContext()
     }
     
@@ -95,6 +96,42 @@ class DBService {
             print(error as AnyObject)
         }
         return model
+    }
+    
+    func markFavAndUnFavCompany(companyId: String, isFav: Bool) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Company")
+        fetchRequest.predicate = NSPredicate(format: "id == %@ ", companyId)
+        do {
+            let companies = try AppDelegate.getContext().fetch(fetchRequest) as! [Company]
+            
+            if companies.count > 0 {
+                companies[0].isFav = isFav
+            }
+        }
+        catch let error {
+            //Handle Error
+            print(error as AnyObject)
+        }
+        
+        self.saveContext()
+    }
+    
+    func markFollowAndUnFollowCompany(companyId: String, isFollow: Bool) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Company")
+        fetchRequest.predicate = NSPredicate(format: "id == %@ ", companyId)
+        do {
+            let companies = try AppDelegate.getContext().fetch(fetchRequest) as! [Company]
+            
+            if companies.count > 0 {
+                companies[0].isFollow = isFollow
+            }
+        }
+        catch let error {
+            //Handle Error
+            print(error as AnyObject)
+        }
+        
+        self.saveContext()
     }
     
     //MARK:- Save Context

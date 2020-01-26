@@ -61,6 +61,22 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJq-1R-97b">
+                                <rect key="frame" x="16" y="109" width="44" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="KfR-Fa-diF"/>
+                                    <constraint firstAttribute="height" constant="44" id="pcZ-3B-fsZ"/>
+                                </constraints>
+                                <state key="normal" image="UnFav"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KNd-yO-d7W">
+                                <rect key="frame" x="248" y="113" width="36" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="36" id="D7b-UA-zpy"/>
+                                    <constraint firstAttribute="height" constant="36" id="rYp-Yh-9cM"/>
+                                </constraints>
+                                <state key="normal" image="UnFollow"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -71,10 +87,14 @@
                             <constraint firstItem="lWl-yC-dXw" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fgZ-23-SaY" secondAttribute="bottom" constant="34.5" id="Jrg-wj-FYQ"/>
                             <constraint firstItem="fgZ-23-SaY" firstAttribute="leading" secondItem="rfD-CX-ioV" secondAttribute="trailing" constant="16" id="Osl-jn-kY4"/>
                             <constraint firstAttribute="bottom" secondItem="lWl-yC-dXw" secondAttribute="bottom" constant="16" id="WPk-o6-ap8"/>
+                            <constraint firstAttribute="trailing" secondItem="KNd-yO-d7W" secondAttribute="trailing" constant="16" id="XIA-gR-BVc"/>
                             <constraint firstItem="uU9-7t-upi" firstAttribute="leading" secondItem="rfD-CX-ioV" secondAttribute="trailing" constant="16" id="aVC-PN-wdX"/>
+                            <constraint firstItem="KNd-yO-d7W" firstAttribute="centerY" secondItem="lWl-yC-dXw" secondAttribute="centerY" id="dz1-aS-YPw"/>
                             <constraint firstItem="fgZ-23-SaY" firstAttribute="top" secondItem="uU9-7t-upi" secondAttribute="bottom" constant="8" id="e72-oc-P6N"/>
+                            <constraint firstItem="lJq-1R-97b" firstAttribute="leading" secondItem="0u3-QY-x7X" secondAttribute="leading" constant="16" id="hsZ-nt-wvd"/>
                             <constraint firstAttribute="trailing" secondItem="uU9-7t-upi" secondAttribute="trailing" constant="16" id="lbk-rm-imi"/>
                             <constraint firstItem="rfD-CX-ioV" firstAttribute="top" secondItem="0u3-QY-x7X" secondAttribute="top" constant="10" id="nif-wG-16r"/>
+                            <constraint firstItem="lJq-1R-97b" firstAttribute="centerY" secondItem="lWl-yC-dXw" secondAttribute="centerY" id="rpC-Iu-hMs"/>
                             <constraint firstItem="rfD-CX-ioV" firstAttribute="leading" secondItem="0u3-QY-x7X" secondAttribute="leading" constant="16" id="udm-X5-Av7"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
@@ -96,6 +116,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnFav" destination="lJq-1R-97b" id="1yk-KD-jSI"/>
+                <outlet property="btnFollow" destination="KNd-yO-d7W" id="ucu-xv-CHe"/>
                 <outlet property="companyDescription" destination="fgZ-23-SaY" id="MlS-rF-okh"/>
                 <outlet property="companyLinkButtom" destination="lWl-yC-dXw" id="wXy-0p-sx0"/>
                 <outlet property="companyName" destination="uU9-7t-upi" id="SIG-Jf-4sk"/>
@@ -104,4 +126,8 @@
             <point key="canvasLocation" x="-71.014492753623188" y="33.816964285714285"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="UnFav" width="512" height="512"/>
+        <image name="UnFollow" width="219" height="230"/>
+    </resources>
 </document>
