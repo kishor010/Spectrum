@@ -1,0 +1,10 @@
+/*
+  Localizable.strings
+  Spectrum_Details
+
+  Created by Kishor Pahalwani on 26/01/20.
+  Copyright © 2020 Kishor Pahalwani. All rights reserved.
+*/
+
+"alertOK" = "OK";
+"loading" = "Loading..";

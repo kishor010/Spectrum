@@ -5,6 +5,8 @@ target 'Spectrum_Details' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
   pod 'SwiftyJSONModel'
+  pod 'Alamofire'
+  pod 'SDWebImage'
   # Pods for Spectrum_Details
 
   target 'Spectrum_DetailsTests' do
