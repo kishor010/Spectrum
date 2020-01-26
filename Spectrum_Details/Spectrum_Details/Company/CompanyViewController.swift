@@ -14,7 +14,7 @@ class CompanyViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableViewCompanyList: UITableView!
     
-    var listCompanies: [CompanyModel]?
+    var listCompanies: [Company]?
     var viewModel: CompanyViewModel?
     
     override func viewDidLoad() {
@@ -24,6 +24,11 @@ class CompanyViewController: UIViewController {
         viewModel?.delegate = self
         viewModel?.fetchCompaniesList()
         setupTableView()
+    }
+    
+    fileprivate func refreshData() {
+        listCompanies = DBService.sharedInstance.fetchAllCompanies()
+        tableViewCompanyList.reloadData()
     }
     
     fileprivate func setupTableView() {
@@ -47,8 +52,7 @@ class CompanyViewController: UIViewController {
 extension CompanyViewController: getCompaniesListDelegate {
     func success(value: Bool, data: [CompanyModel]) {
         if value {
-            self.listCompanies = data
-            tableViewCompanyList.reloadData()
+            refreshData()
         }
         hideProgressIndicator(view: self.view)
     }
@@ -104,7 +108,7 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
     
     @objc fileprivate func tappedOnLink(sender: UITapGestureRecognizer) {
         if let tag = sender.view?.tag, let linkURL = listCompanies?[tag] {
-            if let url = URL(string: linkURL.website), UIApplication.shared.canOpenURL(url)  {
+            if let url = URL(string: linkURL.website ?? ""), UIApplication.shared.canOpenURL(url)  {
                 let openLinkVC = SFSafariViewController(url: url)
                 self.navigationController?.show(openLinkVC, sender: nil)
             }
@@ -116,8 +120,9 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
             if let cell = tableViewCompanyList.cellForRow(at: IndexPath(row: tag, section: 0)) as? CompanyTableViewCell {
                 
                 listCompanies![tag].isFav = !(listCompanies![tag].isFav)
+                DBService.sharedInstance.saveContext()
                 
-                DBService.sharedInstance.markFavAndUnFavCompany(companyId: listCompanies![tag].id ,isFav: listCompanies![tag].isFav )
+//                DBService.sharedInstance.markFavAndUnFavCompany(companyId: listCompanies![tag].id ?? "" ,isFav: listCompanies![tag].isFav )
                 
                 if (listCompanies![tag].isFav == true) {
                     cell.btnFav.setImage(UIImage(named: "Fav"), for: .normal)
@@ -134,11 +139,12 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
         if let tag = sender.view?.tag, listCompanies != nil {
             if let cell = tableViewCompanyList.cellForRow(at: IndexPath(row: tag, section: 0)) as? CompanyTableViewCell {
                 
-                listCompanies![tag].isFollowed = !(listCompanies![tag].isFollowed)
+                listCompanies![tag].isFollow = !(listCompanies![tag].isFollow)
+                DBService.sharedInstance.saveContext()
                 
-                DBService.sharedInstance.markFollowAndUnFollowCompany(companyId: listCompanies![tag].id ,isFollow: listCompanies![tag].isFollowed)
+//                DBService.sharedInstance.markFollowAndUnFollowCompany(companyId: listCompanies![tag].id ?? "" ,isFollow: listCompanies![tag].isFollow)
                 
-                if (listCompanies![tag].isFollowed == true) {
+                if (listCompanies![tag].isFollow == true) {
                     cell.btnFollow.setImage(UIImage(named: "Follow"), for: .normal)
                 }
                 
