@@ -74,20 +74,30 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="611"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iZ-5t-6op">
+                                <rect key="frame" x="20" y="323" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="7iZ-5t-6op" firstAttribute="centerY" secondItem="X5q-Nx-A0u" secondAttribute="centerY" id="1ku-IK-brs"/>
                             <constraint firstItem="fz3-NS-uFY" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="7YL-35-Ph1"/>
+                            <constraint firstItem="gcd-cS-jus" firstAttribute="trailing" secondItem="7iZ-5t-6op" secondAttribute="trailing" constant="20" id="EMU-zd-dQn"/>
                             <constraint firstItem="gcd-cS-jus" firstAttribute="trailing" secondItem="fz3-NS-uFY" secondAttribute="trailing" id="WX0-Is-dHR"/>
                             <constraint firstItem="ZJ3-DD-JWD" firstAttribute="trailing" secondItem="gcd-cS-jus" secondAttribute="trailing" id="WxK-KM-rUW"/>
                             <constraint firstItem="gcd-cS-jus" firstAttribute="bottom" secondItem="fz3-NS-uFY" secondAttribute="bottom" id="eAI-Fw-Ivv"/>
                             <constraint firstItem="ZJ3-DD-JWD" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="jUp-RO-hMM"/>
                             <constraint firstItem="fz3-NS-uFY" firstAttribute="top" secondItem="ZJ3-DD-JWD" secondAttribute="bottom" id="lJt-CL-uJd"/>
                             <constraint firstItem="ZJ3-DD-JWD" firstAttribute="top" secondItem="gcd-cS-jus" secondAttribute="top" id="mkM-Hp-yGs"/>
+                            <constraint firstItem="7iZ-5t-6op" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" constant="20" id="qSR-iq-Abm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gcd-cS-jus"/>
                     </view>
                     <connections>
+                        <outlet property="labelNoDataAvailable" destination="7iZ-5t-6op" id="6EA-Nb-Cuv"/>
                         <outlet property="searchBar" destination="ZJ3-DD-JWD" id="RGu-Xk-3tK"/>
                         <outlet property="tableViewCompanyList" destination="fz3-NS-uFY" id="dVw-v8-ICR"/>
                     </connections>

@@ -13,50 +13,59 @@ class CompanyViewController: UIViewController {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableViewCompanyList: UITableView!
+    @IBOutlet weak var labelNoDataAvailable: UILabel!
     
     var listCompanies: [Company]?
     var viewModel: CompanyViewModel?
     var ascending: Bool?
     var alert: UIAlertController?
     var isSearchEnabled = false
-    var searchListCompanies: [Company] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         showProgressIndicator(view: self.view)
-        viewModel = CompanyViewModel()
-        viewModel?.delegate = self
-        viewModel?.fetchCompaniesList()
+        fetchListOfCompanies()
         setupTableView()
-        setupSearchBar()
+        searchBar.delegate = self
+        labelNoDataAvailable.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupNavigationBar()
+    }
+    
+    fileprivate func setupTableView() {
+        tableViewCompanyList.separatorStyle = .none
+        tableViewCompanyList.delegate = self
+        tableViewCompanyList.dataSource = self
+        tableViewCompanyList.tableFooterView = UIView()
+    }
+    
+    fileprivate func fetchListOfCompanies() {
+        viewModel = CompanyViewModel()
+        viewModel?.delegate = self
+        viewModel?.fetchCompaniesList()
+    }
+    
+    private func setupNavigationBar() {
         self.title = Utils.localizedString(forKey: Keys.companies)
-        
         let rightButtonItem = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(filterTapped))
         self.navigationItem.rightBarButtonItem = rightButtonItem
     }
     
-    fileprivate func refreshData() {
-        listCompanies = DBService.sharedInstance.fetchAllCompanies()
-        tableViewCompanyList.reloadData()
-    }
-    
-    fileprivate func setupSearchBar() {
-        searchBar.delegate = self
-    }
-    
     @objc fileprivate func filterTapped(sender: UIBarButtonItem) {
-        alert = UIAlertController(title: "Select order", message: "", preferredStyle: .alert)
-        alert?.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        
-        alert?.addAction(UIAlertAction(title: "Descending", style: .default, handler: { (action) in
+        setOptionsForFilter()
+    }
+
+    private func setOptionsForFilter() {
+        alert = UIAlertController(title: Utils.localizedString(forKey: Keys.select_order), message: "", preferredStyle: .alert)
+        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil))
+        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.descending), style: .default, handler: { (action) in
             self.ascending = false
             self.sortList()
         }))
-        alert?.addAction(UIAlertAction(title: "Ascending", style: .default, handler: { (action) in
+        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.ascending), style: .default, handler: { (action) in
             self.ascending = true
             self.sortList()
         }))
@@ -67,7 +76,7 @@ class CompanyViewController: UIViewController {
     
     //MARK:- Sort List by Company Name
     fileprivate func sortList() {
-        if (ascending != nil) && (listCompanies != nil) && (listCompanies!.count > 0 && !isSearchEnabled) {
+        if (ascending != nil) && (listCompanies != nil) && (listCompanies!.count > 0) {
             if (ascending == true) {
                 listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
                     if (A.name != nil && B.name != nil) && (A.name! < B.name!) {
@@ -77,7 +86,6 @@ class CompanyViewController: UIViewController {
                         return false
                     }
                 })
-                tableViewCompanyList.reloadData()
             }
             
             else {
@@ -85,25 +93,17 @@ class CompanyViewController: UIViewController {
                     if (A.name != nil && B.name != nil) && (A.name! > B.name!) {
                         return true
                     }
-                    
                     else {
                         return false
                     }
                 })
-                tableViewCompanyList.reloadData()
             }
+            tableViewCompanyList.reloadData()
         }
-    }
-    
-    fileprivate func setupTableView() {
-        tableViewCompanyList.separatorStyle = .none
-        tableViewCompanyList.delegate = self
-        tableViewCompanyList.dataSource = self
-        tableViewCompanyList.tableFooterView = UIView()
-    }
-    
-    fileprivate func showHideListView(isHide: Bool) {
-        tableViewCompanyList.isHidden = isHide
+        
+        else {
+            //Can't sort
+        }
     }
 }
 
@@ -111,7 +111,8 @@ class CompanyViewController: UIViewController {
 extension CompanyViewController: getCompaniesListDelegate {
     func success(value: Bool, data: [CompanyModel]) {
         if value {
-            refreshData()
+            listCompanies = DBService.sharedInstance.fetchAllCompanies()
+            tableViewCompanyList.reloadData()
         }
         hideProgressIndicator(view: self.view)
     }
@@ -125,12 +126,7 @@ extension CompanyViewController: getCompaniesListDelegate {
 //MARK:- Table view delegate and datasource
 extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !isSearchEnabled {
-            return self.listCompanies?.count ?? 0
-        }
-        else {
-            return self.searchListCompanies.count
-        }
+        return self.listCompanies?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -152,14 +148,8 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.btnFav.addGestureRecognizer(TGesFav);
         let TGesFollow = UITapGestureRecognizer(target: self, action: #selector(tappedOnFollow))
         cell?.btnFollow.addGestureRecognizer(TGesFollow);
-        
-        if !isSearchEnabled {
-            cell?.populateData(data: listCompanies?[indexPath.row])
-        }
-        else {
-            cell?.populateData(data: searchListCompanies[indexPath.row])
-        }
-        
+        cell?.populateData(data: listCompanies?[indexPath.row])
+       
         return cell ?? UITableViewCell()
     }
     
@@ -186,20 +176,10 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
     @objc fileprivate func tappedOnFav(sender: UITapGestureRecognizer) {
         if let tag = sender.view?.tag{
             if let cell = tableViewCompanyList.cellForRow(at: IndexPath(row: tag, section: 0)) as? CompanyTableViewCell {
-                if !isSearchEnabled && listCompanies != nil {
+                if  listCompanies != nil {
                     listCompanies![tag].isFav = !(listCompanies![tag].isFav)
                     DBService.sharedInstance.saveContext()
                     if (listCompanies![tag].isFav == true) {
-                        cell.btnFav.setImage(UIImage(named: "Fav"), for: .normal)
-                    }
-                    else {
-                        cell.btnFav.setImage(UIImage(named: "UnFav"), for: .normal)
-                    }
-                }
-                else {
-                    searchListCompanies[tag].isFav = !(searchListCompanies[tag].isFav)
-                    DBService.sharedInstance.saveContext()
-                    if (searchListCompanies[tag].isFav == true) {
                         cell.btnFav.setImage(UIImage(named: "Fav"), for: .normal)
                     }
                     else {
@@ -213,7 +193,7 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
     @objc fileprivate func tappedOnFollow(sender: UITapGestureRecognizer) {
         if let tag = sender.view?.tag {
             if let cell = tableViewCompanyList.cellForRow(at: IndexPath(row: tag, section: 0)) as? CompanyTableViewCell {
-                if !isSearchEnabled && listCompanies != nil {
+                if  listCompanies != nil {
                     listCompanies![tag].isFollow = !(listCompanies![tag].isFollow)
                     DBService.sharedInstance.saveContext()
                     if (listCompanies![tag].isFollow == true) {
@@ -223,22 +203,13 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
                         cell.btnFollow.setImage(UIImage(named: "UnFollow"), for: .normal)
                     }
                 }
-                else {
-                    searchListCompanies[tag].isFollow = !(searchListCompanies[tag].isFollow)
-                    DBService.sharedInstance.saveContext()
-                    if (searchListCompanies[tag].isFollow == true) {
-                        cell.btnFollow.setImage(UIImage(named: "Follow"), for: .normal)
-                    }
-                    else {
-                        cell.btnFollow.setImage(UIImage(named: "Follow"), for: .normal)
-                    }
-                }
             }
         }
     }
     
     fileprivate func searchByName(name: String) {
         if (listCompanies != nil && listCompanies!.count > 0) {
+            var searchListCompanies: [Company] = []
             searchListCompanies = listCompanies!.filter({ (listItem) -> Bool in
                 if (listItem.name?.localizedCaseInsensitiveContains(name) == true)
                 {
@@ -249,7 +220,14 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
                     return false
                 }
             })
+            listCompanies = searchListCompanies
             
+            if ((listCompanies!.count) > 0) {
+                labelNoDataAvailable.isHidden = true
+            }
+            else {
+                labelNoDataAvailable.isHidden = false
+            }
             tableViewCompanyList.reloadData()
         }
     }
@@ -267,17 +245,10 @@ extension CompanyViewController: UISearchBarDelegate {
         }
         
         else {
+            labelNoDataAvailable.isHidden = true
             isSearchEnabled = false
             sortList()
         }
         searchBar.resignFirstResponder()
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        
-    }
-    
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        
     }
 }
