@@ -119,6 +119,8 @@ extension CompanyViewController: getCompaniesListDelegate {
     
     func failure(error: String) {
         hideProgressIndicator(view: self.view)
+        listCompanies = DBService.sharedInstance.fetchAllCompanies()
+        tableViewCompanyList.reloadData()
         Utils.showAlert(AlertTitle: error, AlertMessage: "", controller: self)
     }
 }
@@ -154,7 +156,6 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.estimatedRowHeight = 100
         tableView.rowHeight = 100
         return UITableView.automaticDimension
     }
@@ -162,6 +163,11 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         debugPrint(indexPath.row)
+        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MemberViewController") as? MemberViewController {
+            vc.company = self.listCompanies?[indexPath.row]
+            self.navigationController?.show(vc, sender: nil)
+        }
     }
     
     @objc fileprivate func tappedOnLink(sender: UITapGestureRecognizer) {
@@ -247,7 +253,7 @@ extension CompanyViewController: UISearchBarDelegate {
         else {
             labelNoDataAvailable.isHidden = true
             isSearchEnabled = false
-            sortList()
+            tableViewCompanyList.reloadData()
         }
         searchBar.resignFirstResponder()
     }

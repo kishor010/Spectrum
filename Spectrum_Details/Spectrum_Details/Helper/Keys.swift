@@ -19,4 +19,5 @@ class Keys: NSObject {
     static let cancel = "cancel"
     static let descending = "descending"
     static let ascending = "ascending"
+    static let members = "Members"
 }
