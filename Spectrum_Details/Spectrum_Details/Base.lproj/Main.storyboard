@@ -1,24 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BK4-T5-Z7a">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Spectrum-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Spectrum_Details" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iBM-jb-Z7c">
+                                <rect key="frame" x="87.5" y="303.5" width="200" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="HAA-s7-SCa"/>
+                                    <constraint firstAttribute="height" constant="60" id="t6y-17-He0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Go to Spectrum"/>
+                                <connections>
+                                    <action selector="spectrumButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="S72-ZI-tP0"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="iBM-jb-Z7c" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JxO-H3-Zdk"/>
+                            <constraint firstItem="iBM-jb-Z7c" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="P4b-xN-mZ5"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Spectrum" id="Sei-mL-pig"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="922" y="-671"/>
+        </scene>
+        <!--Member View Controller-->
+        <scene sceneID="aQI-lS-xdW">
+            <objects>
+                <viewController storyboardIdentifier="MemberViewController" id="LSu-pP-3At" customClass="MemberViewController" customModule="Spectrum_Details" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="uXD-wO-fMd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="ia1-XS-rFy"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Yl-Yp-39e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2186" y="-681"/>
+        </scene>
+        <!--Company View Controller-->
+        <scene sceneID="Zxs-Li-jVN">
+            <objects>
+                <viewController storyboardIdentifier="CompanyViewController" id="vmn-mW-f1S" customClass="CompanyViewController" customModule="Spectrum_Details" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="X5q-Nx-A0u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search company by age or name" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ3-DD-JWD">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fz3-NS-uFY">
+                                <rect key="frame" x="0.0" y="56" width="375" height="611"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fz3-NS-uFY" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="7YL-35-Ph1"/>
+                            <constraint firstItem="gcd-cS-jus" firstAttribute="trailing" secondItem="fz3-NS-uFY" secondAttribute="trailing" id="WX0-Is-dHR"/>
+                            <constraint firstItem="ZJ3-DD-JWD" firstAttribute="trailing" secondItem="gcd-cS-jus" secondAttribute="trailing" id="WxK-KM-rUW"/>
+                            <constraint firstItem="gcd-cS-jus" firstAttribute="bottom" secondItem="fz3-NS-uFY" secondAttribute="bottom" id="eAI-Fw-Ivv"/>
+                            <constraint firstItem="ZJ3-DD-JWD" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="jUp-RO-hMM"/>
+                            <constraint firstItem="fz3-NS-uFY" firstAttribute="top" secondItem="ZJ3-DD-JWD" secondAttribute="bottom" id="lJt-CL-uJd"/>
+                            <constraint firstItem="ZJ3-DD-JWD" firstAttribute="top" secondItem="gcd-cS-jus" secondAttribute="top" id="mkM-Hp-yGs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gcd-cS-jus"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="ZJ3-DD-JWD" id="RGu-Xk-3tK"/>
+                        <outlet property="tableViewCompanyList" destination="fz3-NS-uFY" id="dVw-v8-ICR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HZQ-WU-stV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1548" y="-672"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="hDw-h8-tjM">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="BK4-T5-Z7a" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Mb-ur-btd">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="LR2-Bc-cXn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E64-l2-CgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="101.59999999999999" y="-670.61469265367316"/>
         </scene>
     </scenes>
 </document>

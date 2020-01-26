@@ -12,9 +12,17 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
-
+    @IBAction func spectrumButtonAction(_ sender: Any) {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "CompanyViewController") as? CompanyViewController else { return }
+        self.navigationController?.show(vc, sender: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationController?.setCustomNavigation(title: Utils.localizedString(forKey: Keys.spectrum))
+    }
 }
 
