@@ -96,8 +96,9 @@ class CompanyViewController: UIViewController {
     //MARK:- Sort List by Company Name
     fileprivate func sortList() {
         if (ascending != nil) && (listCompanies != nil) && (listCompanies!.count > 0) {
+            var sortListCompanies: [Company]? = []
             if (ascending == true) {
-                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
+                sortListCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
                     if (A.name != nil && B.name != nil) && (A.name! < B.name!) {
                         return true
                     }
@@ -108,7 +109,7 @@ class CompanyViewController: UIViewController {
             }
             
             else {
-                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
+                sortListCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
                     if (A.name != nil && B.name != nil) && (A.name! > B.name!) {
                         return true
                     }
@@ -117,6 +118,7 @@ class CompanyViewController: UIViewController {
                     }
                 })
             }
+            listCompanies = sortListCompanies
             tableViewCompanyList.reloadData()
         }
         
@@ -256,15 +258,10 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
             tableViewCompanyList.reloadData()
         }
     }
-}
-
-//MARK:- Search bar delegate
-extension CompanyViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+    
+    private func callSearchBarWithText(text: String?) {
         listCompanies = DBService.sharedInstance.fetchAllCompanies()
-        
-        if let searchBarText = searchBar.text, searchBarText != "" {
+        if let searchBarText = text, searchBarText != "" {
             isSearchEnabled = true
             searchByName(name: searchBarText)
         }
@@ -275,5 +272,22 @@ extension CompanyViewController: UISearchBarDelegate {
             tableViewCompanyList.reloadData()
         }
         searchBar.resignFirstResponder()
+    }
+}
+
+//MARK:- Search bar delegate
+extension CompanyViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        callSearchBarWithText(text: searchBar.text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        callSearchBarWithText(text: searchBar.text)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text?.count == 0) {
+            callSearchBarWithText(text: nil)
+        }
     }
 }
