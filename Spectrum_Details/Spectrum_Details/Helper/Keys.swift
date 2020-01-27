@@ -20,4 +20,7 @@ class Keys: NSObject {
     static let descending = "descending"
     static let ascending = "ascending"
     static let members = "Members"
+    static let age = "age"
+    static let name = "name"
+    static let searchBy = "searchBy"
 }

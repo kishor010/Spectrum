@@ -60,15 +60,34 @@ class CompanyViewController: UIViewController {
 
     private func setOptionsForFilter() {
         alert = UIAlertController(title: Utils.localizedString(forKey: Keys.select_order), message: "", preferredStyle: .alert)
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil))
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.descending), style: .default, handler: { (action) in
-            self.ascending = false
-            self.sortList()
-        }))
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.ascending), style: .default, handler: { (action) in
+        
+        //Cancel Action
+        let actionCanel = UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil)
+        alert?.addAction(actionCanel)
+        
+        //Ascending
+        let actionAscending = UIAlertAction(title: Utils.localizedString(forKey: Keys.ascending), style: .default, handler: { (action) in
             self.ascending = true
             self.sortList()
-        }))
+        })
+        
+        if self.ascending != nil && self.ascending == true {
+            actionAscending.setValue(UIImage(named: "Selected"), forKey: "image")
+        }
+        
+        //action.setValue(UIImage(named: "Filter"), forKey: "image")
+        alert?.addAction(actionAscending)
+        
+        //Descending
+        let actionDescending = UIAlertAction(title: Utils.localizedString(forKey: Keys.descending), style: .default, handler: { (action) in
+            self.ascending = false
+            self.sortList()
+        })
+        if self.ascending != nil && self.ascending == false {
+            actionDescending.setValue(UIImage(named: "Selected"), forKey: "image")
+        }
+        alert?.addAction(actionDescending)
+        
         if let alert = alert {
             present(alert, animated: false, completion: nil)
         }
@@ -77,8 +96,9 @@ class CompanyViewController: UIViewController {
     //MARK:- Sort List by Company Name
     fileprivate func sortList() {
         if (ascending != nil) && (listCompanies != nil) && (listCompanies!.count > 0) {
+            var sortListCompanies: [Company]? = []
             if (ascending == true) {
-                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
+                sortListCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
                     if (A.name != nil && B.name != nil) && (A.name! < B.name!) {
                         return true
                     }
@@ -89,7 +109,7 @@ class CompanyViewController: UIViewController {
             }
             
             else {
-                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
+                sortListCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
                     if (A.name != nil && B.name != nil) && (A.name! > B.name!) {
                         return true
                     }
@@ -98,6 +118,7 @@ class CompanyViewController: UIViewController {
                     }
                 })
             }
+            listCompanies = sortListCompanies
             tableViewCompanyList.reloadData()
         }
         
@@ -237,15 +258,10 @@ extension CompanyViewController: UITableViewDelegate, UITableViewDataSource {
             tableViewCompanyList.reloadData()
         }
     }
-}
-
-//MARK:- Search bar delegate
-extension CompanyViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        
+    
+    private func callSearchBarWithText(text: String?) {
         listCompanies = DBService.sharedInstance.fetchAllCompanies()
-        
-        if let searchBarText = searchBar.text, searchBarText != "" {
+        if let searchBarText = text, searchBarText != "" {
             isSearchEnabled = true
             searchByName(name: searchBarText)
         }
@@ -256,5 +272,22 @@ extension CompanyViewController: UISearchBarDelegate {
             tableViewCompanyList.reloadData()
         }
         searchBar.resignFirstResponder()
+    }
+}
+
+//MARK:- Search bar delegate
+extension CompanyViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        callSearchBarWithText(text: searchBar.text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        callSearchBarWithText(text: searchBar.text)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text?.count == 0) {
+            callSearchBarWithText(text: nil)
+        }
     }
 }
