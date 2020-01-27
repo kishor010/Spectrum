@@ -60,15 +60,34 @@ class CompanyViewController: UIViewController {
 
     private func setOptionsForFilter() {
         alert = UIAlertController(title: Utils.localizedString(forKey: Keys.select_order), message: "", preferredStyle: .alert)
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil))
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.descending), style: .default, handler: { (action) in
-            self.ascending = false
-            self.sortList()
-        }))
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.ascending), style: .default, handler: { (action) in
+        
+        //Cancel Action
+        let actionCanel = UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil)
+        alert?.addAction(actionCanel)
+        
+        //Ascending
+        let actionAscending = UIAlertAction(title: Utils.localizedString(forKey: Keys.ascending), style: .default, handler: { (action) in
             self.ascending = true
             self.sortList()
-        }))
+        })
+        
+        if self.ascending != nil && self.ascending == true {
+            actionAscending.setValue(UIImage(named: "Selected"), forKey: "image")
+        }
+        
+        //action.setValue(UIImage(named: "Filter"), forKey: "image")
+        alert?.addAction(actionAscending)
+        
+        //Descending
+        let actionDescending = UIAlertAction(title: Utils.localizedString(forKey: Keys.descending), style: .default, handler: { (action) in
+            self.ascending = false
+            self.sortList()
+        })
+        if self.ascending != nil && self.ascending == false {
+            actionDescending.setValue(UIImage(named: "Selected"), forKey: "image")
+        }
+        alert?.addAction(actionDescending)
+        
         if let alert = alert {
             present(alert, animated: false, completion: nil)
         }
