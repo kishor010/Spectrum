@@ -19,6 +19,7 @@ class MemberViewController: UIViewController {
     var ascending: Bool?
     var alert: UIAlertController?
     var isSearchEnabled = false
+    var isAgeSelected: Bool?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,26 +42,80 @@ class MemberViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        self.title = Utils.localizedString(forKey: Keys.members) + " " + ( company?.name ?? "")
+        self.title = (company?.name ?? Utils.localizedString(forKey: Keys.members))
+        //Utils.localizedString(forKey: Keys.members) + " " + ( company?.name ?? "")
         let rightButtonItem = UIBarButtonItem(image: UIImage(named: "Filter"), style: .plain, target: self, action: #selector(filterTapped))
         self.navigationItem.rightBarButtonItem = rightButtonItem
     }
     
     @objc fileprivate func filterTapped(sender: UIBarButtonItem) {
-        setOptionsForFilter()
+        setOptionsForFilterAgeName()
     }
+    
+    private func setOptionsForFilterAgeName() {
+        alert = UIAlertController(title: Utils.localizedString(forKey: Keys.searchBy), message: "", preferredStyle: .alert)
+        
+        //Cancel Action
+        let actionCanel = UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil)
+        alert?.addAction(actionCanel)
+        
+        //Age
+        let actionAge = UIAlertAction(title: Utils.localizedString(forKey: Keys.age), style: .default, handler: { (action) in
+            self.isAgeSelected = true
+            self.setOptionsForFilter()
+        })
+        
+        if self.isAgeSelected != nil && self.isAgeSelected == true {
+            actionAge.setValue(UIImage(named: "Selected"), forKey: "image")
+        }
+        
+        alert?.addAction(actionAge)
+        
+        //Descending
+        let actionName = UIAlertAction(title: Utils.localizedString(forKey: Keys.name), style: .default, handler: { (action) in
+            self.isAgeSelected = false
+            self.setOptionsForFilter()
+        })
+        
+        if self.isAgeSelected != nil && self.isAgeSelected == false {
+            actionName.setValue(UIImage(named: "Selected"), forKey: "image")
+        }
+        alert?.addAction(actionName)
+        
+        if let alert = alert {
+            present(alert, animated: false, completion: nil)
+        }
+    }
+    
 
     private func setOptionsForFilter() {
         alert = UIAlertController(title: Utils.localizedString(forKey: Keys.select_order), message: "", preferredStyle: .alert)
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil))
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.descending), style: .default, handler: { (action) in
-            self.ascending = false
-            self.sortList()
-        }))
-        alert?.addAction(UIAlertAction(title: Utils.localizedString(forKey: Keys.ascending), style: .default, handler: { (action) in
+        
+        //Cancel Action
+        let actionCanel = UIAlertAction(title: Utils.localizedString(forKey: Keys.cancel), style: .cancel, handler: nil)
+        alert?.addAction(actionCanel)
+        
+        //Ascending
+        let actionAscending = UIAlertAction(title: Utils.localizedString(forKey: Keys.ascending), style: .default, handler: { (action) in
             self.ascending = true
             self.sortList()
-        }))
+        })
+        
+        /*if self.ascending != nil && self.ascending == true {
+            actionAscending.setValue(UIImage(named: "Selected"), forKey: "image")
+        }*/
+        alert?.addAction(actionAscending)
+        
+        //Descending
+        let actionDescending = UIAlertAction(title: Utils.localizedString(forKey: Keys.descending), style: .default, handler: { (action) in
+            self.ascending = false
+            self.sortList()
+        })
+        /*if self.ascending != nil && self.ascending == false {
+            actionDescending.setValue(UIImage(named: "Selected"), forKey: "image")
+        }*/
+        alert?.addAction(actionDescending)
+        
         if let alert = alert {
             present(alert, animated: false, completion: nil)
         }
@@ -68,10 +123,13 @@ class MemberViewController: UIViewController {
     
     //MARK:- Sort List by Member Name and age Name
     fileprivate func sortList() {
-        /*if (ascending != nil) && (listCompanies != nil) && (listCompanies!.count > 0) {
-            if (ascending == true) {
-                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
-                    if (A.name != nil && B.name != nil) && (A.name! < B.name!) {
+        
+        if (ascending != nil && self.isAgeSelected != nil) && (members.count > 0) {
+            var sortListMembers: [Member] = []
+            
+            if (isAgeSelected == true && ascending == true) {
+                sortListMembers = members.sorted(by: { (A, B) -> Bool in
+                    if (A.age < B.age) {
                         return true
                     }
                     else {
@@ -80,9 +138,9 @@ class MemberViewController: UIViewController {
                 })
             }
             
-            else {
-                listCompanies = listCompanies?.sorted(by: { (A, B) -> Bool in
-                    if (A.name != nil && B.name != nil) && (A.name! > B.name!) {
+            else if (isAgeSelected == false && ascending == true) {
+                sortListMembers = members.sorted(by: { (A, B) -> Bool in
+                    if (A.firstName != nil && B.firstName != nil) && (A.firstName! < B.firstName!) {
                         return true
                     }
                     else {
@@ -90,12 +148,36 @@ class MemberViewController: UIViewController {
                     }
                 })
             }
-            tableViewCompanyList.reloadData()
+                
+            else if (isAgeSelected == true && ascending == false) {
+                sortListMembers = members.sorted(by: { (A, B) -> Bool in
+                    if (A.age > B.age) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                })
+            }
+            
+            else if (isAgeSelected == false && ascending == false) {
+                sortListMembers = members.sorted(by: { (A, B) -> Bool in
+                    if (A.firstName != nil && B.firstName != nil) && (A.firstName! > B.firstName!) {
+                        return true
+                    }
+                    else {
+                        return false
+                    }
+                })
+            }
+            
+            self.members = sortListMembers
+            tableViewMember.reloadData()
         }
         
         else {
             //Can't sort
-        }*/
+        }
     }
     
     fileprivate func fetchAllMembers(companyId: String) {
@@ -155,11 +237,8 @@ class MemberViewController: UIViewController {
             tableViewMember.reloadData()
         }
     }
-}
-
-//MARK:- Search bar delegate
-extension MemberViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    
+    private func searchMemberByName(text: String?) {
         members = DBService.sharedInstance.fetchAllMembers(companyId: company?.id)
         
         if let searchBarText = searchBar.text, searchBarText != "" {
@@ -173,6 +252,23 @@ extension MemberViewController: UISearchBarDelegate {
             tableViewMember.reloadData()
         }
         searchBar.resignFirstResponder()
+    }
+}
+
+//MARK:- Search bar delegate
+extension MemberViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchMemberByName(text: searchBar.text)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchMemberByName(text: searchBar.text)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if (searchBar.text?.count == 0) {
+            searchMemberByName(text: nil)
+        }
     }
 }
 

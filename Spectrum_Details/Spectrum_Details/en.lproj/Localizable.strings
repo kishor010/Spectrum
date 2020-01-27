@@ -15,3 +15,6 @@
 "descending" = "Descending";
 "ascending" = "Ascending";
 "members" = "Members";
+"age" = "Age";
+"name" = "Name";
+"searchBy" = "Search by";
