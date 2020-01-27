@@ -36,9 +36,7 @@ class CompanyViewModel: NSObject {
                     DBService.sharedInstance.saveComapnies(data: modelObjCompany)
                     if let members = item["members"].array {
                         for member in members {
-                            if let modelObjMember = try? MemberModel.init(json: member) {
-                                DBService.sharedInstance.saveMembers(data: modelObjMember, companyId: modelObjCompany.id)
-                            }
+                             DBService.sharedInstance.saveMembers(data: member, companyId: modelObjCompany.id)
                         }
                     }
                 }

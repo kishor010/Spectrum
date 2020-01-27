@@ -10,3 +10,11 @@
 "loading" = "Loading..";
 "companies" = "Companies";
 "spectrum" = "Spectrum";
+"select_order" = "Sort by order";
+"cancel" = "Cancel";
+"descending" = "Descending";
+"ascending" = "Ascending";
+"members" = "Members";
+"age" = "Age";
+"name" = "Name";
+"searchBy" = "Search by";

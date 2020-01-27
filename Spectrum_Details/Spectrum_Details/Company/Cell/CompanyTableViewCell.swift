@@ -29,7 +29,7 @@ class CompanyTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func populateData(data: CompanyModel?)  {
+    func populateData(data: Company?)  {
         
         companyName.text = data?.name
         companyDescription.text = data?.companyDescription
@@ -49,7 +49,7 @@ class CompanyTableViewCell: UITableViewCell {
             btnFav.setImage(UIImage(named: "UnFav"), for: .normal)
         }
         
-        if (data?.isFollowed == true) {
+        if (data?.isFollow == true) {
             btnFollow.setImage(UIImage(named: "Follow"), for: .normal)
         }
         

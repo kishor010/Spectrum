@@ -13,13 +13,14 @@
         <attribute name="age" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="company_id" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
         <attribute name="isFav" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
         <attribute name="phone" optional="YES" attributeType="String"/>
     </entity>
     <elements>
         <element name="Company" positionX="-63" positionY="-18" width="128" height="148"/>
-        <element name="Member" positionX="-54" positionY="36" width="128" height="148"/>
+        <element name="Member" positionX="-54" positionY="36" width="128" height="163"/>
     </elements>
 </model>

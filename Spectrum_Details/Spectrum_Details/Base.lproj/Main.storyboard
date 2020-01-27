@@ -50,9 +50,42 @@
                     <view key="view" contentMode="scaleToFill" id="uXD-wO-fMd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="Search by member name" translatesAutoresizingMaskIntoConstraints="NO" id="Nhf-Ll-vVx">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5dk-m1-OAi">
+                                <rect key="frame" x="0.0" y="56" width="375" height="611"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEJ-1m-zDz">
+                                <rect key="frame" x="20" y="323" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ia1-XS-rFy" firstAttribute="trailing" secondItem="Nhf-Ll-vVx" secondAttribute="trailing" id="ArV-av-min"/>
+                            <constraint firstItem="ia1-XS-rFy" firstAttribute="trailing" secondItem="5dk-m1-OAi" secondAttribute="trailing" id="K8n-rK-0uB"/>
+                            <constraint firstItem="ia1-XS-rFy" firstAttribute="trailing" secondItem="DEJ-1m-zDz" secondAttribute="trailing" constant="20" id="VGe-Jo-PV6"/>
+                            <constraint firstItem="Nhf-Ll-vVx" firstAttribute="leading" secondItem="uXD-wO-fMd" secondAttribute="leading" id="eJj-xD-bsj"/>
+                            <constraint firstItem="5dk-m1-OAi" firstAttribute="leading" secondItem="ia1-XS-rFy" secondAttribute="leading" id="gRh-jO-28w"/>
+                            <constraint firstItem="ia1-XS-rFy" firstAttribute="bottom" secondItem="5dk-m1-OAi" secondAttribute="bottom" id="iod-RY-amm"/>
+                            <constraint firstItem="5dk-m1-OAi" firstAttribute="top" secondItem="Nhf-Ll-vVx" secondAttribute="bottom" id="oQi-2o-wdk"/>
+                            <constraint firstItem="Nhf-Ll-vVx" firstAttribute="top" secondItem="ia1-XS-rFy" secondAttribute="top" id="omN-FZ-8tO"/>
+                            <constraint firstItem="DEJ-1m-zDz" firstAttribute="centerY" secondItem="uXD-wO-fMd" secondAttribute="centerY" id="tkK-oT-t8J"/>
+                            <constraint firstItem="DEJ-1m-zDz" firstAttribute="leading" secondItem="ia1-XS-rFy" secondAttribute="leading" constant="20" id="wia-nU-gte"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="ia1-XS-rFy"/>
                     </view>
+                    <connections>
+                        <outlet property="labelNoDataAvailable" destination="DEJ-1m-zDz" id="YNT-7g-3Um"/>
+                        <outlet property="searchBar" destination="Nhf-Ll-vVx" id="xsc-R0-vqh"/>
+                        <outlet property="tableViewMember" destination="5dk-m1-OAi" id="miw-wu-A9u"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Yl-Yp-39e" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -66,7 +99,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="Search company by age or name" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ3-DD-JWD">
+                            <searchBar contentMode="redraw" placeholder="Search by company name" translatesAutoresizingMaskIntoConstraints="NO" id="ZJ3-DD-JWD">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
@@ -74,20 +107,30 @@
                                 <rect key="frame" x="0.0" y="56" width="375" height="611"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Data Available" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7iZ-5t-6op">
+                                <rect key="frame" x="20" y="323" width="335" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="7iZ-5t-6op" firstAttribute="centerY" secondItem="X5q-Nx-A0u" secondAttribute="centerY" id="1ku-IK-brs"/>
                             <constraint firstItem="fz3-NS-uFY" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="7YL-35-Ph1"/>
+                            <constraint firstItem="gcd-cS-jus" firstAttribute="trailing" secondItem="7iZ-5t-6op" secondAttribute="trailing" constant="20" id="EMU-zd-dQn"/>
                             <constraint firstItem="gcd-cS-jus" firstAttribute="trailing" secondItem="fz3-NS-uFY" secondAttribute="trailing" id="WX0-Is-dHR"/>
                             <constraint firstItem="ZJ3-DD-JWD" firstAttribute="trailing" secondItem="gcd-cS-jus" secondAttribute="trailing" id="WxK-KM-rUW"/>
                             <constraint firstItem="gcd-cS-jus" firstAttribute="bottom" secondItem="fz3-NS-uFY" secondAttribute="bottom" id="eAI-Fw-Ivv"/>
                             <constraint firstItem="ZJ3-DD-JWD" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" id="jUp-RO-hMM"/>
                             <constraint firstItem="fz3-NS-uFY" firstAttribute="top" secondItem="ZJ3-DD-JWD" secondAttribute="bottom" id="lJt-CL-uJd"/>
                             <constraint firstItem="ZJ3-DD-JWD" firstAttribute="top" secondItem="gcd-cS-jus" secondAttribute="top" id="mkM-Hp-yGs"/>
+                            <constraint firstItem="7iZ-5t-6op" firstAttribute="leading" secondItem="gcd-cS-jus" secondAttribute="leading" constant="20" id="qSR-iq-Abm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="gcd-cS-jus"/>
                     </view>
                     <connections>
+                        <outlet property="labelNoDataAvailable" destination="7iZ-5t-6op" id="6EA-Nb-Cuv"/>
                         <outlet property="searchBar" destination="ZJ3-DD-JWD" id="RGu-Xk-3tK"/>
                         <outlet property="tableViewCompanyList" destination="fz3-NS-uFY" id="dVw-v8-ICR"/>
                     </connections>
