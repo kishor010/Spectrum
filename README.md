@@ -7,3 +7,7 @@
 6) How to use filters also can get in this.
 7) It is mostly helping..how to create a new branch and about master branch, origin branch, upstream branch, features branch, about creating pull requests and etc.
 
+# How to install
+1) Clone the project.
+2) Pod install. 
+3) Build and run the project. 
