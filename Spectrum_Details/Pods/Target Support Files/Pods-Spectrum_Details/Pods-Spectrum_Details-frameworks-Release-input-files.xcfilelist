@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-Spectrum_Details/Pods-Spectrum_Details-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
+${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework
+${BUILT_PRODUCTS_DIR}/SwiftyJSONModel/SwiftyJSONModel.framework

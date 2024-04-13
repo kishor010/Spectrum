@@ -50,9 +50,9 @@ fileprivate class RestClient {
                                  onFailure: @escaping onFailure
         ) -> Void {
         
-        Alamofire.request(url)
+        AF.request(url)
             .validate()
-            .responseJSON { response in
+            .responseData { response in
                 
                 if DEBUG_MODE {
                     print("--------START---------")
@@ -67,10 +67,9 @@ fileprivate class RestClient {
                 if response.response?.statusCode == 200 {
                     switch response.result {
                     case .success:
-                        if let result = response.result.value {
-                            let json = JSON(result) //response.response?.statusCode
-                            onSuccess(json)
-                        }
+                        let result = response.result
+                        let json = JSON(response.value) //response.response?.statusCode
+                        onSuccess(json)
                         break
                         
                     case .failure:
